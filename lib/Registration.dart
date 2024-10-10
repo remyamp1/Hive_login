@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hiveregistration/login.dart';
 class RegistrationExample extends StatefulWidget {
   const RegistrationExample({super.key});
 
@@ -8,10 +9,9 @@ class RegistrationExample extends StatefulWidget {
 }
 
 class _RegistrationExampleState extends State<RegistrationExample> {
-
+ TextEditingController usernameController=TextEditingController();
+TextEditingController passwordController=TextEditingController();
   late Box box;
-String? username;
-int? Password;
   @override
   void initState(){
     super.initState();
@@ -30,20 +30,27 @@ int? Password;
               SizedBox(height: 10),
 
               TextField(
-                onTap:(){
-                  setState(() {
-                    box.put('username',)
-                  });
-                },
+       controller: usernameController,
                 decoration: InputDecoration(border: OutlineInputBorder(),),),
               SizedBox(height: 20),
 
               Text("Password"),
               SizedBox(height: 10),
 
-              TextField(decoration: InputDecoration(border: OutlineInputBorder()),),
+              TextField
+              
+              (
+                controller: passwordController,
+                decoration: InputDecoration(border: OutlineInputBorder()),),
               SizedBox(height: 30),
-              ElevatedButton(onPressed: (){}, child: Text("Registration"))
+              ElevatedButton(onPressed: (){
+
+                setState(() {
+                  box.put('username', usernameController.text);
+                  box.put('password',passwordController.text);
+                });
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginExample()));
+              }, child: Text("Registration"))
             ],
           ),
         ),
